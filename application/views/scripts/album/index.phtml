@@ -1,0 +1,11 @@
+<?php foreach ($this->albums as $album): ?>
+<div class='row mb-3'>
+    <div class="col-md-2 themed-grid-col"><?php echo $this->escape($album->title); ?></div>
+    <div class="col-md-2 themed-grid-col"><?php echo $album->year; ?></div>
+    <div class="col-md-2 themed-grid-col"><?php echo $album->artist; ?></div>
+    <div class="col-md-2 themed-grid-col"><?php echo $album->genre; ?></div>
+    <div class="col-md-2 themed-grid-col">
+        <img style="width:50px; height:50px" alt="<?php echo $album->title; ?>" src="<?php echo $this->imageBase64(APPLICATION_PATH.'/../data/uploads/cover/'.$album->img); ?>" />
+    </div>
+</div>
+<?php endforeach; ?>
