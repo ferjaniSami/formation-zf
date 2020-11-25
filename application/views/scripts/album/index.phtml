@@ -1,11 +1,47 @@
 <?php foreach ($this->albums as $album): ?>
-<div class='row mb-3'>
+<div class='row mb-3' id="album-<?php echo $album->id; ?>">
     <div class="col-md-2 themed-grid-col"><?php echo $this->escape($album->title); ?></div>
     <div class="col-md-2 themed-grid-col"><?php echo $album->year; ?></div>
     <div class="col-md-2 themed-grid-col"><?php echo $album->artist; ?></div>
     <div class="col-md-2 themed-grid-col"><?php echo $album->genre; ?></div>
+<div class="col-md-2 themed-grid-col">
+    <img style="width:50px; height:50px" alt="<?php echo $album->title; ?>" src="<?php echo $this->imageBase64(Application_Service_Config::getConfig('upload.cover.path') .$album->img); ?>" />
+    </div>
     <div class="col-md-2 themed-grid-col">
-        <img style="width:50px; height:50px" alt="<?php echo $album->title; ?>" src="<?php echo $this->imageBase64(APPLICATION_PATH.'/../data/uploads/cover/'.$album->img); ?>" />
+        <a href="<?php echo $this->url(
+                array(
+                'controller' => 'album',
+                'action'     => 'edit',
+                'id'        => $album->id
+                )); ?>" title="Modifier">Modifier</a>
+        <!-- <a href="<?php echo $this->url(
+                array(
+                'controller' => 'album',
+                'action'     => 'delete',
+                'id'        => $album->id
+                )); ?>" title="Supprimer">Supprimer</a>-->
+                <a href="#" onclick="deleteAlbum(<?php echo $album->id; ?>)">Supprimer</a>
     </div>
 </div>
 <?php endforeach; ?>
+
+<script type="text/javascript">
+function deleteAlbum(id){
+    $.ajax({
+        url : '<?php echo $this->url(
+                array(
+                'controller' => 'album',
+                'action'     => 'delete'
+                )); ?>',
+        type : 'POST',
+        data : 'id='+id,
+        dataType : 'json',
+        success : function(result, status){
+            $("#album-"+id).remove();
+        },
+        error : function(result, status, erreur){
+            alert(result);
+        }
+    });
+}
+</script>

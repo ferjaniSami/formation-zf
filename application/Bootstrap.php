@@ -16,7 +16,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initConfig()
     {
         $config = new Zend_Config($this->getOptions());
-        //$configRoute = new Zend_Config_Ini(APPLICATION_PATH.'/configs/routes.ini', APPLICATION_ENV);
         Zend_Registry::set('config', $config);
         return $config;
     }
@@ -36,6 +35,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
  
         // Retourner la vue pour qu'elle puisse �tre stock�e par le bootstrap
         return $view;
+    }
+    
+    protected function _initRoute()
+    {
+        $router = Zend_Controller_Front::getInstance()->getRouter();
+        include APPLICATION_PATH . '/configs/routes.php';
     }
 }
 

@@ -25,7 +25,7 @@ class Application_Form_Albums extends Zend_Form
                 ->setValidators(array(
                 'Int',
                 array('validator' => 'GreaterThan', 'options' => array(date('Y') - 100)),
-                array('validator' => 'LessThan', 'options' => array(date('Y'))),
+                array('validator' => 'LessThan', 'options' => array(date('Y') + 1)),
             ));
         $this->addElement($year);
         
@@ -49,14 +49,14 @@ class Application_Form_Albums extends Zend_Form
         $img = new Zend_Form_Element_File('img');
         $img->setLabel('Pochette:')
             ->setRequired(true)
-            ->setDestination(APPLICATION_PATH . '/../data/uploads/cover');
+            ->setDestination(Application_Service_Config::getConfig('upload.cover.path'));
             //->setDestination(Application_Service_Config::getConfig('upload.cover.path'));
         // Fait en sorte qu'il y ait un seul fichier
         $img->addValidator('Count', false, 1);
         // limite à 100K
         $img->addValidator('Size', false, 102400);
         // seulement des JPEG, PNG, et GIFs
-        $img->addValidator('Extension', false, 'jpg,png,gif');
+        $img->addValidator('Extension', false, Application_Service_Config::getConfig('upload.cover.extension'));
         //$img->addValidator('Extension', false, Application_Service_Config::getConfig('upload.cover.extension'));
         $this->addElement($img);
         // Add a captcha

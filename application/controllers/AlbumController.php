@@ -24,12 +24,56 @@ class AlbumController extends Zend_Controller_Action
 
     public function deleteAction()
     {
-        // action body
+        $id = (int) $this->getRequest()->getParam('id', 0);
+        if($this->getRequest()->isXmlHttpRequest()){
+            $this->_helper->layout()->disableLayout();
+            $this->_helper->viewRenderer->setNoRender();
+            $this->_mapper->delete($id);
+            echo Zend_Json::encode(array('msg' => 'Album deleted'));
+        }else{
+            $this->_mapper->delete($id);
+            $this->_helper->flashMessenger('Album deleted');
+            return $this->_helper->redirector('index');
+        }
+    }
+    
+    public function deleteajaxAction()
+    {
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        if($this->getRequest()->isXmlHttpRequest()){
+            $id = (int) $this->getRequest()->getParam('id', 0);
+            $this->_mapper->delete($id);
+            echo Zend_Json::encode(array('msg' => 'Album deleted'));
+        }else{
+            $this->getResponse()->setHttpResponseCode(404);
+            echo 'Album not deleted';
+        }
+        
     }
 
     public function editAction()
     {
-        // action body
+        $id = $this->getRequest()->getParam('id', 0);
+        $form = new Application_Form_Albums();
+        $album = $this->_mapper->find($id);
+        $img = $album->img;
+        if($this->getRequest()->isPost()){
+            $values = $this->getRequest()->getParams();
+            $values['img'] = $img;
+            $album = new Application_Model_Albums($values);
+            $this->_mapper->save($album);
+        }else{   
+            $form->populate(array(
+                'title' => $album->title,
+                'year' => $album->year,
+                'artist' => $album->artist,
+                'genre' => $album->genre,
+            ));
+        }
+        //$form = $this->_helper->actionForm($form);
+        $this->view->form = $form;
+        
     }
 
     public function addAction()
