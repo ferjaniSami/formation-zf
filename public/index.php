@@ -8,6 +8,10 @@ defined('APPLICATION_PATH')
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
+// Define application environment
+defined('APPLICATION_CONF_PATH')
+    || define('APPLICATION_CONF_PATH', realpath(dirname(__FILE__) . '/../application/configs/'));
+
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../vendor'),

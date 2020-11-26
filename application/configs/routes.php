@@ -15,6 +15,14 @@ $route = new Zend_Controller_Router_Route_Static(
 );
 $router->addRoute('home', $route);
 $route = new Zend_Controller_Router_Route_Static(
+    'login',
+    array(
+        'controller'    => 'index',
+        'action'        => 'login'
+    )
+);
+$router->addRoute('login', $route);
+$route = new Zend_Controller_Router_Route_Static(
     'addAlbum',
     array(
         'controller'    => 'album',

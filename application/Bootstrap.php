@@ -42,5 +42,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router = Zend_Controller_Front::getInstance()->getRouter();
         include APPLICATION_PATH . '/configs/routes.php';
     }
+    
+    protected function _initCore()
+    {
+        $autoloader = Zend_Loader_Autoloader::getInstance();
+        $autoloader->registerNamespace('Utils_');
+    }
+
 }
 
