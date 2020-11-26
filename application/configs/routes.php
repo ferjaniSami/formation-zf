@@ -30,6 +30,16 @@ $route = new Zend_Controller_Router_Route_Static(
     )
 );
 $router->addRoute('addAlbum', $route);
+
+$route = new Zend_Controller_Router_Route_Static(
+    'logout',
+    array(
+        'controller'    => 'index',
+        'action'        => 'logout'
+    )
+);
+$router->addRoute('logout', $route);
+
 $route = new Zend_Controller_Router_Route(
     'editAlbum/:id',
     array(
