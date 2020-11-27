@@ -25,9 +25,9 @@ class Application_Service_Rest_Operations
     );
 
 
-    public function getDate()
+    public function getDate($format)
     {
-        return date("Y-m-d");
+        return date($format);
     }
     
     public function bonjour()

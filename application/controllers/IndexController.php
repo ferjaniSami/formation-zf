@@ -34,7 +34,12 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        
+        $client = new Zend_Rest_Client('http://formation-zf.my/webservice/rest/get');
+ 
+        $result = $client->quote()->get();
+        if ($result->isSuccess()) {
+            print_r($result); // "Hello Davey, Good Day"
+        }
     }
     
     public function loginAction()
