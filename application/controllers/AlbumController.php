@@ -5,7 +5,7 @@ class AlbumController extends Zend_Controller_Action
     private $_mapper;
     public function init()
     {
-        $this->_mapper = new Application_Model_AlbumsMapper();
+        $this->_mapper = Application_Service_DI::getAlbumMapper();
     //$this->_helper->layout()->setLayout('layout1');
         /* Initialize action controller here
         $bootstrap = $this->getInvokeArg('bootstrap');

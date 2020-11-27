@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class Application_Service_Plugins_Monplugin extends Zend_Controller_Plugin_Abstract
+class Application_Service_Controller_Plugin_Myplugin extends Zend_Controller_Plugin_Abstract
 {
     public function routeStartup(Zend_Controller_Request_Abstract $request) {
         $this->getResponse()->appendBody('<p style="color:red">routeStartup appelée</p>');
